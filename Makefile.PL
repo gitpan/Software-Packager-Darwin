@@ -7,6 +7,9 @@ WriteMakefile(
 	'AUTHOR'	=> 'R Bernard Davison (rbdavison@cpan.org)',
 	'ABSTRACT'	=> 'This module extends Software::Packager providing the ability to create packages for MacOS X.',
 	'PREREQ_PM'	=> {
-		'Software::Packager'	=>	'0.05',
+		'Software::Packager'	=>	'0.06',
+		},
+	'clean'		=> {
+		'FILES'	=> 'MacOSXTestPackage.pkg',
 		},
 );

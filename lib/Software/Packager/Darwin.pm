@@ -1,6 +1,6 @@
 =head1 NAME
 
- Software::Packager::Darwin
+Software::Packager::Darwin - The Software::Packager extension for MacOS X
 
 =head1 DESCRIPTION
 
@@ -28,10 +28,11 @@ use Software::Packager;
 
 ####################
 # Variables
-our @ISA = qw( Software::Packager );
-our @EXPORT = qw();
-our @EXPORT_OK = qw();
-our $VERSION = 0.05;
+use vars qw(@ISA @EXPORT @EXPORT_OK $VERSION);
+@ISA = qw( Software::Packager );
+@EXPORT = qw();
+@EXPORT_OK = qw();
+$VERSION = 0.08;
 
 ####################
 # Functions
@@ -85,6 +86,38 @@ sub package
 	}
 
 	return 1;
+}
+
+################################################################################
+# Function:	install_dir()
+
+=head2 B<install_dir()>
+
+ $packager->install_dir('/usr/local');
+ my $base_dir = $packager->install_dir();
+ 
+This method sets the base directory for the software to be installed.
+The installation directory must start with a "/".
+ 
+=cut
+sub install_dir
+{
+	my $self = shift;
+	my $value = shift;
+
+	if ($value)
+	{
+		if ($value !~ /^\//)
+		{
+			warn "Warning: The installation directory does not start with a \"/\". Prepending \"/\" to $value.";
+			$value = "/" . $value;
+		}
+		$self->{'BASEDIR'} = $value;
+	}
+	else
+	{
+		return $self->{'BASEDIR'};
+	}
 }
 
 ################################################################################
